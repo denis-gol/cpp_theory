@@ -74,6 +74,7 @@ public:
         if (client_fd == -1) {
             std::perror("[SERVER] accept() failed");
             close(sock_fd);
+            sock_fd = -1; // после close, все еще содержит число. Вручную указываем, что уже неактуально!
             throw std::runtime_error("Ошибка при подключении (accept).");
         }
         return client_fd;

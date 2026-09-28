@@ -12,6 +12,9 @@
 // Logger logger("CLIENT");
 // logger.log_message("Client's log starts");
 //
+// ВАЖНО!
+// Клиент и сервер пишут в один файл. Если размер сообщения не будет превышать 4кБ (posix:PIPE_BUF),
+// то данные гарантированно не перемешаются в файле, т.к. еще до записи будут сложены в Page Cache, т.е. FIFO.
 //
 
 #include <iostream>
