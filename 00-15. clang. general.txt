@@ -46,6 +46,30 @@ https://ru.hexlet.io/courses/c-basics/lessons/hello-world/theory_unit
 
 
 //--------------------------------------
+ТИПЫ ДАННЫХ
+
+---
+size_t
+    the unsigned integer type of the result of sizeof
+    Размер равен размеру указателя (4 или 8 байт).
+    Используется для указания размеров объектов в байтах и индексов массивов (sizeof и др.)
+
+Defined in header <stddef.h>
+Defined in header <stdio.h>
+Defined in header <stdlib.h>
+Defined in header <string.h>
+Defined in header <time.h>
+Defined in header <uchar.h>
+Defined in header <wchar.h>
+
+Максимальное значение: определяется макросом SIZE_MAX из заголовочного файла <stdint.h>
+
+
+---
+
+
+
+//--------------------------------------
 СТРОКА
     Просто последовательный массив байт в памяти, который заканчивается специальным маркером — нуль-терминатором НТ (\0).
 
