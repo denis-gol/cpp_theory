@@ -6,6 +6,7 @@
 !00-13. linux. common.txt
 !00-14. bare-metal. common.txt
 !00-15. clang. general.txt
+!00-4. cpp. builders.txt
 !readme.md
 !.gitignore
 !как загрузить свой проц*.png
