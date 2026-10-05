@@ -554,7 +554,7 @@ fprintf (варианты, куда можно им писать):
 
 ---
 sprintf/snprintf
-    Мощный инструмент для сборки строк
+    Мощный инструмент для сборки строк. После добавления строки сам дописывает НТ.
 
 Синтаксис: 
     int sprintf( char* restrict buffer, const char* restrict format, ... );
@@ -582,13 +582,50 @@ Return:
 
 
 
+//-----
+БИБЛИОТЕЧНЫЕ ФУНКЦИИ
 
+---
+strcpy
+    Копирует строку (вместе с НГ) из src в dest.
+    header: <string.h>
+    
+    char* strcpy( char* restrict dest, const char* restrict src );
 
+    UB - если dest меньше размером, если строки перекрываются, если src/dest не являются указателями.
 
+    Возвращает - указатель на dest.
 
+---
+strlen
+    Считает количество символов в строке, не включая финальный нуль-терминатор (\0).
+    header: <string.h>
 
+    size_t strlen( const char* str );
+    size_t strnlen_s( const char* str, size_t strsz ); (since C11)
 
+    Возвращает - кол-во символов.
 
+---
+strcat
+    Добавляет строку src после dest, дописывает НТ в конце.
+    header: <string.h>
+
+    char * strcat ( char * restrict dest , const char * restrict src ); 
+
+    Возвращает - копию dest.
+    
+---
+strcmp
+    Сравнивает две строки лексикографически (по ASCII-коду)
+    header: <string.h>
+
+    int strcmp( const char* lhs, const char* rhs );
+
+Возвращает (разницу по ASCII - diff):
+    - отрицательное, если lhs перед rhs
+    - ноль, если равны
+    - положительное, если lhs после rhs
 
 
 
