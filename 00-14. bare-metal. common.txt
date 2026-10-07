@@ -550,6 +550,54 @@ D:\projects\STM32CubeIDE\Repository
 
 
 //--------------------------------------
+Запустил плату (пришлось Firmware update)
+
+Лог:
+20:01:13 : UR connection mode is defined with the HWrst reset mode
+20:01:13 : ST-LINK SN  : 066DFF514953787567152118
+20:01:13 : ST-LINK FW  : V2J45M31
+20:01:13 : Board       : --
+20:01:13 : Voltage     : 3.25V
+20:01:13 : SWD freq    : 4000 KHz
+20:01:13 : Connect mode: Normal
+20:01:13 : Reset mode  : Software reset
+20:01:13 : Device ID   : 0x431
+20:01:13 : Revision ID : Rev A
+20:01:13 : UPLOADING OPTION BYTES DATA ...
+20:01:13 :   Bank          : 0x00
+20:01:13 :   Address       : 0x40023c14
+20:01:13 :   Size          : 8 Bytes
+20:01:13 : UPLOADING ...
+20:01:13 :   Size          : 1024 Bytes
+20:01:13 :   Address       : 0x8000000
+20:01:13 : Read progress:
+20:01:13 : Data read successfully
+20:01:13 : Time elapsed during the read operation is: 00:00:00.007
+
+---
+Что показывает флеш-память, сразу после подключения:
+Адрес 0x08000000 — Начальное значение указателя стека (Stack Pointer, SP),
+    Там лежит 20000660 - адреса 0x2000..., указывают на оперативную память (SRAM)
+Адрес 0x08000004 — Вектор сброса (Reset Vector) 
+    самый первый адрес, на который физически перейдет процессор для выполнения кода.
+    0800021D - нечетный (хитрость с Thumb), реальный адрес первой инструкции - 0800021C
+Адрес 0x08000008 (08003B85) - Вектор NMI (Non-Maskable Interrupt, невыравниваемое прерывание)
+    Сюда ЦП прыгнет при фатальном сбое (отказ внешнего кварца).
+Адрес 0x0800000C (0800037D) - Вектор HardFault (тяжелая аппаратная ошибка)
+    Сюда,  если код попытался делить число на ноль, обратиться к отсутств. памяти или выполнить некорректную инструкцию.
+
+
+---
+Дизассемблируем:
+
+PowerShell:
+& "D:\bin\STM32CubeIDE_1.15.0\STM32CubeIDE\plugins\
+    com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.win32_1.0.100.202403111256\
+    tools\bin\arm-none-eabi-objdump.exe"
+    -m arm -M force-thumb -D -b binary --adjust-vma=0x08000000 D:\stmprojects\dump1.bin > D:\stmprojects\target_code.txt
+
+
+
 
 
 //--------------------------------------
